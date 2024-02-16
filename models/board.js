@@ -41,7 +41,7 @@ const boardSchema = new mongoose.Schema({
   },
   columns: {
     type: [String],
-    default: ["ToDo", "Doing", "Done"],
+    default: ["Todo", "Doing", "Done"],
   },
   tasks: [taskSchema],
   dateCreated: {
