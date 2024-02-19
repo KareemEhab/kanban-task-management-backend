@@ -7,7 +7,7 @@ const logger = require("./services/logging");
 
 app.use(
   cors({
-    origin: "http://127.0.0.1:5173",
+    origin: "*",
   })
 );
 
