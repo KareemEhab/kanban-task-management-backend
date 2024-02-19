@@ -41,7 +41,7 @@ const boardSchema = new mongoose.Schema({
   },
   columns: {
     type: [String],
-    default: ["Todo", "Doing", "Done"],
+    default: ["TODO", "DOING", "DONE"],
   },
   tasks: [taskSchema],
   dateCreated: {
@@ -54,15 +54,18 @@ const Board = mongoose.model("Board", boardSchema);
 
 const validateBoard = (board) => {
   const schema = Joi.object({
+    _id: Joi.objectId(),
     name: Joi.string().min(3).max(50).required(),
     columns: Joi.array().items(Joi.string()),
     tasks: Joi.array().items(
       Joi.object().keys({
+        _id: Joi.objectId(),
         name: Joi.string().min(3).max(50).required(),
-        description: Joi.string(),
+        description: Joi.string().allow("").min(0).max(10000),
         subTasks: Joi.array()
           .items(
             Joi.object().keys({
+              _id: Joi.objectId(),
               name: Joi.string().min(3).max(50).required(),
               isDone: Joi.boolean().default(false),
             })

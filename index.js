@@ -1,8 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const cors = require("cors");
 require("express-async-errors");
 const logger = require("./services/logging");
+
+app.use(
+  cors({
+    origin: "http://127.0.0.1:5173",
+  })
+);
 
 require("./startup/routes")(app);
 require("./startup/db")();
