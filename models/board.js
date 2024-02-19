@@ -61,7 +61,7 @@ const validateBoard = (board) => {
       Joi.object().keys({
         _id: Joi.objectId(),
         name: Joi.string().min(3).max(50).required(),
-        description: Joi.string().allow("").min(0).max(10000),
+        description: Joi.string().allow("").min(0).max(1000),
         subTasks: Joi.array()
           .items(
             Joi.object().keys({

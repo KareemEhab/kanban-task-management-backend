@@ -23,6 +23,10 @@ router.post("/", async (req, res) => {
   });
 
   await board.save();
+
+  // Exclude the __v field from the response
+  board = await Board.findById(board._id).select("-__v");
+
   res.send(board);
 });
 
