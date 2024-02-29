@@ -33,6 +33,10 @@ const taskSchema = new mongoose.Schema({
 });
 
 const boardSchema = new mongoose.Schema({
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
   name: {
     type: String,
     min: 3,
@@ -55,6 +59,7 @@ const Board = mongoose.model("Board", boardSchema);
 const validateBoard = (board) => {
   const schema = Joi.object({
     _id: Joi.objectId(),
+    user_id: Joi.objectId(),
     name: Joi.string().min(3).max(50).required(),
     columns: Joi.array().items(Joi.string()),
     tasks: Joi.array().items(
