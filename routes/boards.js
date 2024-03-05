@@ -2,6 +2,7 @@ const auth = require("../middleware/auth");
 const { Router } = require("express");
 const router = Router();
 const { Board, validate } = require("../models/board");
+const _ = require("lodash");
 
 // Function to exclude __v field
 const excludeVField = { __v: 0 };
@@ -28,10 +29,7 @@ router.post("/", auth, async (req, res) => {
   // Save the new board to the database
   await board.save();
 
-  // Exclude the __v field from the response
-  board = await Board.findById(board._id).select("-__v");
-
-  res.send(board);
+  res.send(_.omit(board.toObject(), "__v"));
 });
 
 // Get board By ID
@@ -71,7 +69,8 @@ router.put("/:id", auth, async (req, res) => {
   board.tasks = req.body.tasks;
 
   const updatedBoard = await board.save();
-  res.send(updatedBoard);
+
+  res.send(_.omit(updatedBoard.toObject(), "__v"));
 });
 
 // Delete board By ID
